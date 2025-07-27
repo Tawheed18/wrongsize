@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Brand</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Font Awesome for Instagram Icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Slider Styles */
+    .gallery-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .gallery-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      width: 100%;
+    }
+
+    .gallery-track img {
+      width: 100%;
+      flex-shrink: 0;
+      border-radius: 8px;
+    }
+
+    .gallery-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #1e2a38; /* Dark arrow color */
+  font-size: 2rem; /* Bigger arrow */
+  cursor: pointer;
+  z-index: 1;
+}
+
+.gallery-btn.left {
+  left: 0.5rem;
+}
+
+.gallery-btn.right {
+  right: 0.5rem;
+}
+
+.gallery-btn:hover {
+  background-color: #ff7b7b; /* Lighter red on hover */
+}
+
+.gallery-btn.left {
+  left: 0.5rem;
+}
+
+.gallery-btn.right {
+  right: 0.5rem;
+}
+
+    .gallery-btn.left {
+      left: 0.5rem;
+    }
+
+    .gallery-btn.right {
+      right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="logo.png" alt="WRONG SIZE Logo" class="brand-logo" />
+      <div class="logo-tagline">Disrupt the Fit</div>
+      <div class="social-link">
+        <a href="https://www.instagram.com/yourshopusername" target="_blank" class="instagram-icon">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="products">
+    <!-- Product 1 -->
+    <div class="product-card">
+      <div class="gallery-slider">
+        <button class="gallery-btn left">&#10094;</button>
+        <div class="gallery-track">
+          <img src="cargoyellow3.png" alt="Product 1A" />
+          <img src="cargoyellow1.png" alt="Product 1B" />
+          <img src="cargoyellow2.png" alt="Product 1C" />
+        </div>
+        <button class="gallery-btn right">&#10095;</button>
+      </div>
+      <h2>Product One</h2>
+      <p>Elegant and minimal.</p>
+      <a href="https://www.instagram.com/yourshopusername" target="_blank">
+        <button>Shop Now</button>
+      </a>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card">
+      <div class="gallery-slider">
+        <button class="gallery-btn left">&#10094;</button>
+        <div class="gallery-track">
+          <img src="overdose1.png" alt="Overdose Tee Front" />
+          <img src="overdose2.jpg" alt="Overdose Tee Back" />
+          <img src="overdose3.jpg" alt="Overdose Tee Back" />
+        </div>
+        <button class="gallery-btn right">&#10095;</button>
+      </div>
+      <h2>Overdose Tee</h2>
+      <p>Pastel perfection.</p>
+      <a href="https://www.instagram.com/yourshopusername" target="_blank">
+        <button>Shop Now</button>
+      </a>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card">
+      <div class="gallery-slider">
+        <button class="gallery-btn left">&#10094;</button>
+        <div class="gallery-track">
+          <img src="cargo1.png" alt="cargo1" />
+          <img src="cargo2.png" alt="cargo2" />
+        </div>
+        <button class="gallery-btn right">&#10095;</button>
+      </div>
+      <h2>Product Three</h2>
+      <p>Soft and chic.</p>
+      <a href="https://www.instagram.com/yourshopusername" target="_blank">
+        <button>Shop Now</button>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 WRONG SIZE. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.product-card').forEach(card => {
+      const track = card.querySelector('.gallery-track');
+      const btnLeft = card.querySelector('.gallery-btn.left');
+      const btnRight = card.querySelector('.gallery-btn.right');
+  
+      let currentIndex = 0;
+      const images = track.querySelectorAll('img');
+  
+      function updateSlider() {
+        const offset = -currentIndex * track.clientWidth;
+        track.style.transform = `translateX(${offset}px)`;
+      }
+  
+      btnLeft.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateSlider();
+        }
+      });
+  
+      btnRight.addEventListener('click', () => {
+        if (currentIndex < images.length - 1) {
+          currentIndex++;
+          updateSlider();
+        }
+      });
+  
+      window.addEventListener('resize', updateSlider);
+  
+      // Swipe Support
+      let startX = 0;
+      let isDragging = false;
+  
+      track.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      });
+  
+      track.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const currentX = e.touches[0].clientX;
+        const diffX = startX - currentX;
+  
+        if (Math.abs(diffX) > 50) {
+          if (diffX > 0 && currentIndex < images.length - 1) {
+            currentIndex++;
+          } else if (diffX < 0 && currentIndex > 0) {
+            currentIndex--;
+          }
+          updateSlider();
+          isDragging = false;
+        }
+      });
+  
+      track.addEventListener('touchend', () => {
+        isDragging = false;
+      });
+    });
+  </script>
+</body>
+</html>
