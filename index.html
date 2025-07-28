@@ -108,10 +108,11 @@
     </div>
   </header>
 
-
-  <!-- ...everything above remains unchanged... -->
-
-<section class="products" id="products">
+  <div class="collection-wrapper">
+    <div class="collection-title" onclick="toggleCollection()">VOLUME ZERO: WRONG FIT, RIGHT ENERGY</div>
+  
+    <section class="products" id="products">
+      <!-- Product cards remain unchanged -->
   <!-- Product 1 -->
   <div class="product-card">
     <div class="gallery-slider">
@@ -123,7 +124,7 @@
       </div>
       <button class="gallery-btn right">&#10095;</button>
     </div>
-    <h2>Product One</h2>
+    <h2>CONCRETE HEAT CARGOS</h2>
     <p>Elegant and minimal.</p>
     <a href="https://www.instagram.com/yourshopusername" target="_blank">
       <button>Shop Now</button>
@@ -158,7 +159,7 @@
       </div>
       <button class="gallery-btn right">&#10095;</button>
     </div>
-    <h2>Product Three</h2>
+    <h2>LAGGED FIT CARGOS</h2>
     <p>Soft and chic.</p>
     <a href="https://www.instagram.com/yourshopusername" target="_blank">
       <button>Shop Now</button>
@@ -170,12 +171,13 @@
     <div class="gallery-slider">
       <button class="gallery-btn left">&#10094;</button>
       <div class="gallery-track">
-        <img src="graphictee1.png" alt="Graphic Tee Front" />
-        <img src="graphictee2.png" alt="Graphic Tee Back" />
+        <img src="beanie (2).png" alt="Graphic Tee Front" />
+        <img src="beanie (1).png" alt="Graphic Tee Back" />
+        <img src="beanie (3).png" alt="Graphic Tee Back" />
       </div>
       <button class="gallery-btn right">&#10095;</button>
     </div>
-    <h2>Graphic Tee</h2>
+    <h2>WRONG WARMTH BEANIE</h2>
     <p>Bold prints, clean fit.</p>
     <a href="https://www.instagram.com/yourshopusername" target="_blank">
       <button>Shop Now</button>
@@ -193,7 +195,7 @@
       </div>
       <button class="gallery-btn right">&#10095;</button>
     </div>
-    <h2>Denim Set</h2>
+    <h2>VOID FORM HOODIE</h2>
     <p>Street-ready essentials.</p>
     <a href="https://www.instagram.com/yourshopusername" target="_blank">
       <button>Shop Now</button>
@@ -204,13 +206,16 @@
 <section id="about">
   <div class="about-content">
     <h2>About Us</h2>
-    <p>WRONG SIZE is a bold streetwear brand redefining fit and attitude. We design with edge, comfort, and confidence in mind.</p>
+    <p>WRONG SIZE started with a simple idea: clothes shouldn't fit expectations — they should fit you. What began as a late-night sketch on a torn notebook turned into a bold movement.</p>
+    <p>Born in a small room, inspired by oversized hand-me-downs and the freedom of not fitting in, WRONG SIZE was created to challenge the fashion system. We design loose-fit streetwear that embraces imperfection — oversized, undersized, asymmetrical, raw.</p>
+     <p>Every piece represents rebellion, authenticity, and individuality. Our style is rooted in street culture, shaped by real people and real stories. WRONG SIZE isn’t just a brand — it’s a mindset. For those who refuse to blend in, for those who wear confidence louder than clothes. This is your fit, your way — even if it's the wrong size.</p> 
   </div>
 </section>
 
 <footer id="contact">
   <p>&copy; 2025 WRONG SIZE. All rights reserved.</p>
   <p>Email: contact@wrongsize.com</p>
+  <p>Phone: +1 111 111 1111</p>
 </footer>
 
 <!-- ...script remains unchanged... -->
@@ -274,6 +279,10 @@
         isDragging = false;
       });
     });
+    function toggleCollection() {
+  const products = document.getElementById('products');
+  products.classList.toggle('show');
+}
   </script>
 </body>
 </html>

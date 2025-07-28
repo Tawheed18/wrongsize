@@ -77,6 +77,35 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
 }
+.logo-tagline::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background-color: #ff3b3b;
+  margin: 0.5rem auto 0;
+}
+
+.collection-title {
+  font-size: 2rem;
+  font-family: 'Bebas Neue', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-align: center;
+  margin: 3rem 0 1.5rem;
+  position: relative;
+}
+
+.collection-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 2px;
+  background-color: #ff3b3b;
+  margin: 0.5rem auto 0;
+}
+
 
 /* Social Icons */
 .social-link {
@@ -268,4 +297,29 @@ footer p {
   object-fit: contain;
   flex-shrink: 0;
   border-radius: 8px;
+}
+
+/* Collection Title Interactivity */
+.collection-title {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.collection-title:hover {
+  color: #ff7b7b;
+}
+
+/* Animated Reveal for Products Section */
+.products {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.8s ease, opacity 0.8s ease;
+  padding: 0 2rem; /* Keep padding for layout but not vertical space */
+}
+
+.products.show {
+  max-height: 5000px; /* Large enough to show all content */
+  opacity: 1;
+  padding: 3rem 2rem; /* Restore original padding when visible */
 }
