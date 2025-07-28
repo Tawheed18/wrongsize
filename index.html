@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WRONG SIZE</title>
+  <title>WRONG-SIZE</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
@@ -79,76 +79,141 @@
   </style>
 </head>
 <body>
+  <div class="top-banner">
+    Free delivery over $100
+  </div>
+
+  <!-- Top Bar: Nav Buttons (Left) + Social Icons (Right) -->
+  <div class="top-bar">
+    <div class="nav-buttons">
+      <button onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' })">Shop</button>
+      <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">Contact</button>
+      <button onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' })">About Us</button>
+    </div>
+    <div class="social-link">
+      <a href="https://www.instagram.com/yourshopusername" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram instagram-icon"></i>
+      </a>
+      <a href="https://www.tiktok.com/@yourshopusername" target="_blank" aria-label="TikTok">
+        <i class="fab fa-tiktok tiktok-icon"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Header: Logo and Tagline Centered -->
   <header>
     <div class="header-content">
       <img src="logo.png" alt="WRONG SIZE Logo" class="brand-logo" />
       <div class="logo-tagline">Disrupt the Fit</div>
-      <div class="social-link">
-        <a href="https://www.instagram.com/yourshopusername" target="_blank" class="instagram-icon">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </div>
     </div>
   </header>
 
-  <section class="products">
-    <!-- Product 1 -->
-    <div class="product-card">
-      <div class="gallery-slider">
-        <button class="gallery-btn left">&#10094;</button>
-        <div class="gallery-track">
-          <img src="cargoyellow3.png" alt="Product 1A" />
-          <img src="cargoyellow1.png" alt="Product 1B" />
-          <img src="cargoyellow2.png" alt="Product 1C" />
-        </div>
-        <button class="gallery-btn right">&#10095;</button>
-      </div>
-      <h2>Product One</h2>
-      <p>Elegant and minimal.</p>
-      <a href="https://www.instagram.com/yourshopusername" target="_blank">
-        <button>Shop Now</button>
-      </a>
-    </div>
 
-    <!-- Product 2 -->
-    <div class="product-card">
-      <div class="gallery-slider">
-        <button class="gallery-btn left">&#10094;</button>
-        <div class="gallery-track">
-          <img src="overdose1.png" alt="Overdose Tee Front" />
-          <img src="overdose2.jpg" alt="Overdose Tee Back" />
-          <img src="overdose3.jpg" alt="Overdose Tee Back" />
-        </div>
-        <button class="gallery-btn right">&#10095;</button>
-      </div>
-      <h2>Overdose Tee</h2>
-      <p>Pastel perfection.</p>
-      <a href="https://www.instagram.com/yourshopusername" target="_blank">
-        <button>Shop Now</button>
-      </a>
-    </div>
+  <!-- ...everything above remains unchanged... -->
 
-    <!-- Product 3 -->
-    <div class="product-card">
-      <div class="gallery-slider">
-        <button class="gallery-btn left">&#10094;</button>
-        <div class="gallery-track">
-          <img src="cargo1.png" alt="cargo1" />
-          <img src="cargo2.png" alt="cargo2" />
-        </div>
-        <button class="gallery-btn right">&#10095;</button>
+<section class="products" id="products">
+  <!-- Product 1 -->
+  <div class="product-card">
+    <div class="gallery-slider">
+      <button class="gallery-btn left">&#10094;</button>
+      <div class="gallery-track">
+        <img src="cargoyellow3.png" alt="Product 1A" />
+        <img src="cargoyellow1.png" alt="Product 1B" />
+        <img src="cargoyellow2.png" alt="Product 1C" />
       </div>
-      <h2>Product Three</h2>
-      <p>Soft and chic.</p>
-      <a href="https://www.instagram.com/yourshopusername" target="_blank">
-        <button>Shop Now</button>
-      </a>
+      <button class="gallery-btn right">&#10095;</button>
     </div>
-  </section>
+    <h2>Product One</h2>
+    <p>Elegant and minimal.</p>
+    <a href="https://www.instagram.com/yourshopusername" target="_blank">
+      <button>Shop Now</button>
+    </a>
+  </div>
 
-  <footer>
-    <p>&copy; 2025 WRONG SIZE. All rights reserved.</p>
-  </footer>
+  <!-- Product 2 -->
+  <div class="product-card">
+    <div class="gallery-slider">
+      <button class="gallery-btn left">&#10094;</button>
+      <div class="gallery-track">
+        <img src="overdose1.png" alt="Overdose Tee Front" />
+        <img src="overdose2.jpg" alt="Overdose Tee Back" />
+        <img src="overdose3.jpg" alt="Overdose Tee Back" />
+      </div>
+      <button class="gallery-btn right">&#10095;</button>
+    </div>
+    <h2>Overdose Tee</h2>
+    <p>Pastel perfection.</p>
+    <a href="https://www.instagram.com/yourshopusername" target="_blank">
+      <button>Shop Now</button>
+    </a>
+  </div>
+
+  <!-- Product 3 -->
+  <div class="product-card">
+    <div class="gallery-slider">
+      <button class="gallery-btn left">&#10094;</button>
+      <div class="gallery-track">
+        <img src="cargo1.png" alt="cargo1" />
+        <img src="cargo2.png" alt="cargo2" />
+      </div>
+      <button class="gallery-btn right">&#10095;</button>
+    </div>
+    <h2>Product Three</h2>
+    <p>Soft and chic.</p>
+    <a href="https://www.instagram.com/yourshopusername" target="_blank">
+      <button>Shop Now</button>
+    </a>
+  </div>
+
+  <!-- Product 4 -->
+  <div class="product-card">
+    <div class="gallery-slider">
+      <button class="gallery-btn left">&#10094;</button>
+      <div class="gallery-track">
+        <img src="graphictee1.png" alt="Graphic Tee Front" />
+        <img src="graphictee2.png" alt="Graphic Tee Back" />
+      </div>
+      <button class="gallery-btn right">&#10095;</button>
+    </div>
+    <h2>Graphic Tee</h2>
+    <p>Bold prints, clean fit.</p>
+    <a href="https://www.instagram.com/yourshopusername" target="_blank">
+      <button>Shop Now</button>
+    </a>
+  </div>
+
+  <!-- Product 5 -->
+  <div class="product-card">
+    <div class="gallery-slider">
+      <button class="gallery-btn left">&#10094;</button>
+      <div class="gallery-track">
+        <img src="hoodie 1.png" alt="Denim Set Front" />
+        <img src="hoodie 2.png" alt="Denim Set Back" />
+        <img src="hoodie 3.png" alt="Denim Set Back" />
+      </div>
+      <button class="gallery-btn right">&#10095;</button>
+    </div>
+    <h2>Denim Set</h2>
+    <p>Street-ready essentials.</p>
+    <a href="https://www.instagram.com/yourshopusername" target="_blank">
+      <button>Shop Now</button>
+    </a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-content">
+    <h2>About Us</h2>
+    <p>WRONG SIZE is a bold streetwear brand redefining fit and attitude. We design with edge, comfort, and confidence in mind.</p>
+  </div>
+</section>
+
+<footer id="contact">
+  <p>&copy; 2025 WRONG SIZE. All rights reserved.</p>
+  <p>Email: contact@wrongsize.com</p>
+</footer>
+
+<!-- ...script remains unchanged... -->
 
   <script>
     document.querySelectorAll('.product-card').forEach(card => {
