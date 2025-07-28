@@ -269,6 +269,11 @@ footer p {
   .about-content p {
     font-size: 0.95rem;
   }
+  .collection-title {
+    text-align: center;
+    margin: 2rem auto 1rem;
+  }
+
 }
 
 /* Gallery Slider */
