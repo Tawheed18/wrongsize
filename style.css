@@ -76,7 +76,9 @@ body {
   font-family: 'Bebas Neue', sans-serif;
   letter-spacing: 2px;
   text-transform: uppercase;
+  position: relative;
 }
+
 .logo-tagline::after {
   content: "";
   display: block;
@@ -86,6 +88,7 @@ body {
   margin: 0.5rem auto 0;
 }
 
+/* Collection Title */
 .collection-title {
   font-size: 2rem;
   font-family: 'Bebas Neue', sans-serif;
@@ -95,6 +98,12 @@ body {
   text-align: center;
   margin: 3rem 0 1.5rem;
   position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.collection-title:hover {
+  color: #ff7b7b;
 }
 
 .collection-title::after {
@@ -105,7 +114,6 @@ body {
   background-color: #ff3b3b;
   margin: 0.5rem auto 0;
 }
-
 
 /* Social Icons */
 .social-link {
@@ -125,13 +133,23 @@ body {
   color: #ff7b7b;
 }
 
-/* Products Section */
+/* Products Section with Animation */
 .products {
   display: flex;
   justify-content: center;
   gap: 2.5rem;
-  padding: 3rem 2rem;
   flex-wrap: wrap;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.8s ease, opacity 0.8s ease;
+  padding: 0 2rem;
+}
+
+.products.show {
+  max-height: 5000px;
+  opacity: 1;
+  padding: 3rem 2rem;
 }
 
 /* Product Card */
@@ -232,6 +250,7 @@ footer p {
 
 /* Responsive */
 @media (max-width: 600px) {
+  @media (max-width: 600px) {
   .top-bar {
     flex-direction: column;
     align-items: center;
@@ -258,8 +277,20 @@ footer p {
   }
 
   .products {
-    flex-direction: column;
-    align-items: center;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+    padding: 2rem 1rem;
+  }
+
+  .product-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-width: 80%;
+    max-width: 80%;
   }
 
   .about-content h2 {
@@ -269,11 +300,11 @@ footer p {
   .about-content p {
     font-size: 0.95rem;
   }
+
   .collection-title {
     text-align: center;
     margin: 2rem auto 1rem;
   }
-
 }
 
 /* Gallery Slider */
@@ -302,29 +333,4 @@ footer p {
   object-fit: contain;
   flex-shrink: 0;
   border-radius: 8px;
-}
-
-/* Collection Title Interactivity */
-.collection-title {
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.collection-title:hover {
-  color: #ff7b7b;
-}
-
-/* Animated Reveal for Products Section */
-.products {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.8s ease, opacity 0.8s ease;
-  padding: 0 2rem; /* Keep padding for layout but not vertical space */
-}
-
-.products.show {
-  max-height: 5000px; /* Large enough to show all content */
-  opacity: 1;
-  padding: 3rem 2rem; /* Restore original padding when visible */
-}
+}}
