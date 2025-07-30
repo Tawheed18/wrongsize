@@ -171,13 +171,12 @@ body {
 .product-card img {
   width: 100%;
   height: auto;
-  max-height: 300px;
+  max-height: none;
+  object-fit: contain;
   border-radius: 10px;
-  object-fit: cover;
   background-color: #000;
 }
 
-/* Product Text */
 .product-card h2 {
   margin: 1rem 0 0.5rem;
   font-size: 1.6rem;
@@ -284,6 +283,11 @@ footer p {
     -webkit-overflow-scrolling: touch;
     gap: 1rem;
     padding: 2rem 1rem;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .products::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
   }
 
   .product-card {
@@ -291,7 +295,9 @@ footer p {
     scroll-snap-align: start;
     min-width: 80%;
     max-width: 80%;
+    box-sizing: border-box;
   }
+
 
   .about-content h2 {
     font-size: 1.5rem;

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout</title>
+  <link rel="stylesheet" href="checkout.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Outfit&display=swap" rel="stylesheet">
+  <script src="https://js.stripe.com/v3"></script>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="Brand Logo" class="brand-logo" />
+    <h1>Checkout</h1>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="checkout-container">
+      <form id="checkout-form">
+
+        <!-- 🛍️ Product Selection -->
+        <div class="form-group">
+          <label>Select Products</label>
+          <div id="product-list">
+            <!-- Product items -->
+            <div class="product-item">
+              <label>
+                <input type="checkbox" class="product-checkbox" data-price="89" data-name="Concrete Heat Cargos">
+                <img src="cargoyellow2.png" alt="Concrete Heat Cargos" class="product-thumb" />
+                Concrete Heat Cargos – $89.00
+              </label>
+              <input type="number" class="product-qty" min="1" value="1" disabled>
+            </div>
+            <div class="product-item">
+              <label>
+                <input type="checkbox" class="product-checkbox" data-price="39" data-name="Overdose Tee">
+                <img src="overdose2.jpg" alt="Overdose Tee" class="product-thumb" />
+                Overdose Tee – $39.00
+              </label>
+              <input type="number" class="product-qty" min="1" value="1" disabled>
+            </div>
+            <div class="product-item">
+              <label>
+                <input type="checkbox" class="product-checkbox" data-price="79" data-name="Lagged Fit Cargos">
+                <img src="cargo2.png" alt="Lagged Fit Cargos" class="product-thumb" />
+                Lagged Fit Cargos – $79.00
+              </label>
+              <input type="number" class="product-qty" min="1" value="1" disabled>
+            </div>
+            <div class="product-item">
+              <label>
+                <input type="checkbox" class="product-checkbox" data-price="29" data-name="Wrong Warmth Beanie">
+                <img src="beanie (1).png" alt="Wrong Warmth Beanie" class="product-thumb" />
+                Wrong Warmth Beanie – $29.00
+              </label>
+              <input type="number" class="product-qty" min="1" value="1" disabled>
+            </div>
+            <div class="product-item">
+              <label>
+                <input type="checkbox" class="product-checkbox" data-price="69" data-name="Void Form Hoodie">
+                <img src="hoodie 3.png" alt="Void Form Hoodie" class="product-thumb" />
+                Void Form Hoodie – $69.00
+              </label>
+              <input type="number" class="product-qty" min="1" value="1" disabled>
+            </div>
+          </div>
+        </div>
+
+        <!-- 💰 Total Display -->
+        <div class="form-group">
+          <label>Total</label>
+          <p id="total-price">$0.00</p>
+        </div>
+
+        <!-- 👤 Customer Info -->
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="John Doe" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="john@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+1-416-123-4567" required />
+        </div>
+
+        <!-- 🏠 Address Details -->
+        <div class="form-group">
+          <label for="street">Street Address</label>
+          <input type="text" id="street" name="street" placeholder="123 Maple Ave" required />
+        </div>
+
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" name="city" placeholder="Toronto" required />
+        </div>
+
+        <div class="form-group">
+          <label for="postal">Postal Code</label>
+          <input type="text" id="postal" name="postal" placeholder="M4B 1B3" required pattern="[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d" title="Format: A1A 1A1" />
+        </div>
+
+        <div class="form-group">
+          <label for="country">Country</label>
+          <input type="text" id="country" name="country" value="Canada" readonly />
+        </div>
+
+        <!-- 💳 Payment Method -->
+        <div class="form-group payment-methods">
+          <label>Payment Method</label>
+          <div class="payment-option">
+            <input type="radio" id="credit" name="payment" value="credit" required />
+            <label for="credit">Credit Card</label>
+          </div>
+          <div class="payment-option">
+            <input type="radio" id="paypal" name="payment" value="paypal" />
+            <label for="paypal">PayPal</label>
+          </div>
+        </div>
+
+        <!-- 🔒 Stripe Card Element -->
+        <div id="card-element" class="form-group"></div>
+        <div id="card-errors" class="error-message"></div>
+        <div class="product-summary" id="order-summary">
+  <h2>Order Summary</h2>
+  <ul id="summary-list"></ul>
+  <p id="summary-total-line">Total: <span id="summary-total">$0.00</span></p>
+  <p class="delivery-note">Estimated Delivery: 5–10 business days</p>
+</div>
+        <!-- ✅ Submit -->
+        <button type="submit" id="submit-button">Place Order & Pay</button>
+        <p class="summary">You’ll receive a confirmation email after placing your order.</p>
+
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Your Brand. All rights reserved.
+  </footer>
+
+  <!-- 💳 Stripe + Form Logic -->
+  <script>
+    const stripe = Stripe('your-publishable-key'); // Replace with your actual key
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
+
+    const form = document.getElementById('checkout-form');
+    const submitButton = document.getElementById('submit-button');
+    const errorDisplay = document.getElementById('card-errors');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitButton.disabled = true;
+      submitButton.textContent = 'Processing...';
+
+      // Validate postal code
+      const postal = document.getElementById('postal').value.trim().toUpperCase();
+      const postalPattern = /^[A-Z]\d[A-Z] ?\d[A-Z]\d$/;
+      if (!postalPattern.test(postal)) {
+        alert("Please enter a valid Canadian postal code (e.g., A1A 1A1).");
+        submitButton.disabled = false;
+        submitButton.textContent = 'Place Order & Pay';
+        return;
+      }
+
+      // Create Stripe payment method
+      const { paymentMethod, error } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: card,
+      });
+
+      if (error) {
+        errorDisplay.textContent = error.message;
+        submitButton.disabled = false;
+        submitButton.textContent = 'Place Order & Pay';
+        return;
+      }
+
+      // Send order + paymentMethod.id to backend
+      const orderData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        address: {
+          street: document.getElementById('street').value,
+          city: document.getElementById('city').value,
+          postal: postal,
+          country: document.getElementById('country').value
+        },
+        payment_method: paymentMethod.id,
+        products: Array.from(document.querySelectorAll('.product-checkbox'))
+          .filter(cb => cb.checked)
+          .map(cb => ({
+            name: cb.getAttribute('data-name'),
+            price: parseFloat(cb.getAttribute('data-price')),
+            quantity: parseInt(cb.parentElement.nextElementSibling.value)
+          }))
+      };
+
+      const response = await fetch('/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
+
+      const result = await response.json();
+
+      if (result.error) {
+        errorDisplay.textContent = result.error;
+        submitButton.disabled = false;
+                submitButton.textContent = 'Place Order & Pay';
+      } else {
+        alert('Order placed successfully!');
+        form.reset();
+        card.clear();
+        document.getElementById('total-price').textContent = '$0.00';
+        submitButton.disabled = false;
+        submitButton.textContent = 'Place Order & Pay';
+      }
+    });
+
+    // 🧠 Product Selection Logic
+    const checkboxes = document.querySelectorAll('.product-checkbox');
+    const totalDisplay = document.getElementById('total-price');
+
+    checkboxes.forEach((checkbox) => {
+      const qtyInput = checkbox.parentElement.nextElementSibling;
+
+      checkbox.addEventListener('change', () => {
+        qtyInput.disabled = !checkbox.checked;
+        updateTotal();
+      });
+
+      qtyInput.addEventListener('input', updateTotal);
+    });
+
+    function updateTotal() {
+  let total = 0;
+  const summaryList = document.getElementById('summary-list');
+  const summaryTotal = document.getElementById('summary-total');
+
+  summaryList.innerHTML = ''; // Clear previous summary
+
+  checkboxes.forEach((checkbox) => {
+    const qtyInput = checkbox.parentElement.nextElementSibling;
+    if (checkbox.checked) {
+      const name = checkbox.getAttribute('data-name');
+      const price = parseFloat(checkbox.getAttribute('data-price'));
+      const qty = parseInt(qtyInput.value) || 1;
+      const itemTotal = price * qty;
+      total += itemTotal;
+
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        ${name} × ${qty} — $${itemTotal.toFixed(2)}
+        <button class="remove-item" data-name="${name}">Remove</button>
+      `;
+      summaryList.appendChild(listItem);
+    }
+  });
+
+  summaryTotal.textContent = `$${total.toFixed(2)}`;
+  totalDisplay.textContent = `$${total.toFixed(2)}`;
+
+  // Attach remove button listeners
+  document.querySelectorAll('.remove-item').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const nameToRemove = btn.getAttribute('data-name');
+      checkboxes.forEach((checkbox) => {
+        if (checkbox.getAttribute('data-name') === nameToRemove) {
+          checkbox.checked = false;
+          checkbox.parentElement.nextElementSibling.disabled = true;
+        }
+      });
+      updateTotal();
+    });
+  });
+}
+
+    // 💳 Toggle Stripe Card Element
+    const creditRadio = document.getElementById('credit');
+    const paypalRadio = document.getElementById('paypal');
+    const cardElementContainer = document.getElementById('card-element');
+
+    function toggleCardElement() {
+      cardElementContainer.style.display = creditRadio.checked ? 'block' : 'none';
+    }
+
+    creditRadio.addEventListener('change', toggleCardElement);
+    paypalRadio.addEventListener('change', toggleCardElement);
+
+    // Initialize visibility on page load
+    toggleCardElement();
+  </script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const summary = document.querySelector(".checkout-summary");
+    const deliveryNote = document.querySelector(".delivery-note");
+    const totalAmount = document.querySelector(".total-amount");
+
+    // Add animation class after slight delay
+    setTimeout(() => {
+      summary.classList.add("animate");
+      deliveryNote.classList.add("animate");
+      totalAmount.classList.add("animate");
+    }, 300); // Delay for smoother entrance
+  });
+</script>
+</body>
+</html>
