@@ -1,319 +1,309 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkout</title>
-  <link rel="stylesheet" href="checkout.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Outfit&display=swap" rel="stylesheet">
-  <script src="https://js.stripe.com/v3"></script>
-</head>
-<body>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | WRONG SIZE</title>
 
-  <header>
-    <img src="logo.png" alt="Brand Logo" class="brand-logo" />
-    <h1>Checkout</h1>
-  </header>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
 
-  <div class="page-wrapper">
-    <div class="checkout-container">
-      <form id="checkout-form">
-
-        <!-- 🛍️ Product Selection -->
-        <div class="form-group">
-          <label>Select Products</label>
-          <div id="product-list">
-            <!-- Product items -->
-            <div class="product-item">
-              <label>
-                <input type="checkbox" class="product-checkbox" data-price="89" data-name="Concrete Heat Cargos">
-                <img src="cargoyellow2.png" alt="Concrete Heat Cargos" class="product-thumb" />
-                Concrete Heat Cargos – $89.00
-              </label>
-              <input type="number" class="product-qty" min="1" value="1" disabled>
-            </div>
-            <div class="product-item">
-              <label>
-                <input type="checkbox" class="product-checkbox" data-price="39" data-name="Overdose Tee">
-                <img src="overdose2.jpg" alt="Overdose Tee" class="product-thumb" />
-                Overdose Tee – $39.00
-              </label>
-              <input type="number" class="product-qty" min="1" value="1" disabled>
-            </div>
-            <div class="product-item">
-              <label>
-                <input type="checkbox" class="product-checkbox" data-price="79" data-name="Lagged Fit Cargos">
-                <img src="cargo2.png" alt="Lagged Fit Cargos" class="product-thumb" />
-                Lagged Fit Cargos – $79.00
-              </label>
-              <input type="number" class="product-qty" min="1" value="1" disabled>
-            </div>
-            <div class="product-item">
-              <label>
-                <input type="checkbox" class="product-checkbox" data-price="29" data-name="Wrong Warmth Beanie">
-                <img src="beanie (1).png" alt="Wrong Warmth Beanie" class="product-thumb" />
-                Wrong Warmth Beanie – $29.00
-              </label>
-              <input type="number" class="product-qty" min="1" value="1" disabled>
-            </div>
-            <div class="product-item">
-              <label>
-                <input type="checkbox" class="product-checkbox" data-price="69" data-name="Void Form Hoodie">
-                <img src="hoodie 3.png" alt="Void Form Hoodie" class="product-thumb" />
-                Void Form Hoodie – $69.00
-              </label>
-              <input type="number" class="product-qty" min="1" value="1" disabled>
-            </div>
-          </div>
-        </div>
-
-        <!-- 💰 Total Display -->
-        <div class="form-group">
-          <label>Total</label>
-          <p id="total-price">$0.00</p>
-        </div>
-
-        <!-- 👤 Customer Info -->
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" name="name" placeholder="John Doe" required />
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="john@example.com" required />
-        </div>
-
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" placeholder="+1-416-123-4567" required />
-        </div>
-
-        <!-- 🏠 Address Details -->
-        <div class="form-group">
-          <label for="street">Street Address</label>
-          <input type="text" id="street" name="street" placeholder="123 Maple Ave" required />
-        </div>
-
-        <div class="form-group">
-          <label for="city">City</label>
-          <input type="text" id="city" name="city" placeholder="Toronto" required />
-        </div>
-
-        <div class="form-group">
-          <label for="postal">Postal Code</label>
-          <input type="text" id="postal" name="postal" placeholder="M4B 1B3" required pattern="[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d" title="Format: A1A 1A1" />
-        </div>
-
-        <div class="form-group">
-          <label for="country">Country</label>
-          <input type="text" id="country" name="country" value="Canada" readonly />
-        </div>
-
-        <!-- 💳 Payment Method -->
-        <div class="form-group payment-methods">
-          <label>Payment Method</label>
-          <div class="payment-option">
-            <input type="radio" id="credit" name="payment" value="credit" required />
-            <label for="credit">Credit Card</label>
-          </div>
-          <div class="payment-option">
-            <input type="radio" id="paypal" name="payment" value="paypal" />
-            <label for="paypal">PayPal</label>
-          </div>
-        </div>
-
-        <!-- 🔒 Stripe Card Element -->
-        <div id="card-element" class="form-group"></div>
-        <div id="card-errors" class="error-message"></div>
-        <div class="product-summary" id="order-summary">
-  <h2>Order Summary</h2>
-  <ul id="summary-list"></ul>
-  <p id="summary-total-line">Total: <span id="summary-total">$0.00</span></p>
-  <p class="delivery-note">Estimated Delivery: 5–10 business days</p>
-</div>
-        <!-- ✅ Submit -->
-        <button type="submit" id="submit-button">Place Order & Pay</button>
-        <p class="summary">You’ll receive a confirmation email after placing your order.</p>
-
-      </form>
-    </div>
-  </div>
-
-  <footer>
-    &copy; 2025 Your Brand. All rights reserved.
-  </footer>
-
-  <!-- 💳 Stripe + Form Logic -->
-  <script>
-    const stripe = Stripe('your-publishable-key'); // Replace with your actual key
-    const elements = stripe.elements();
-    const card = elements.create('card');
-    card.mount('#card-element');
-
-    const form = document.getElementById('checkout-form');
-    const submitButton = document.getElementById('submit-button');
-    const errorDisplay = document.getElementById('card-errors');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      submitButton.disabled = true;
-      submitButton.textContent = 'Processing...';
-
-      // Validate postal code
-      const postal = document.getElementById('postal').value.trim().toUpperCase();
-      const postalPattern = /^[A-Z]\d[A-Z] ?\d[A-Z]\d$/;
-      if (!postalPattern.test(postal)) {
-        alert("Please enter a valid Canadian postal code (e.g., A1A 1A1).");
-        submitButton.disabled = false;
-        submitButton.textContent = 'Place Order & Pay';
-        return;
-      }
-
-      // Create Stripe payment method
-      const { paymentMethod, error } = await stripe.createPaymentMethod({
-        type: 'card',
-        card: card,
-      });
-
-      if (error) {
-        errorDisplay.textContent = error.message;
-        submitButton.disabled = false;
-        submitButton.textContent = 'Place Order & Pay';
-        return;
-      }
-
-      // Send order + paymentMethod.id to backend
-      const orderData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        address: {
-          street: document.getElementById('street').value,
-          city: document.getElementById('city').value,
-          postal: postal,
-          country: document.getElementById('country').value
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              accentYellow: '#D4AF37',
+              neutralDark: '#1F1F1F',
+            },
+            fontFamily: {
+              display: ['Bebas Neue', 'Anton', 'sans-serif'],
+              body: ['Outfit', 'sans-serif'],
+            },
+          },
         },
-        payment_method: paymentMethod.id,
-        products: Array.from(document.querySelectorAll('.product-checkbox'))
-          .filter(cb => cb.checked)
-          .map(cb => ({
-            name: cb.getAttribute('data-name'),
-            price: parseFloat(cb.getAttribute('data-price')),
-            quantity: parseInt(cb.parentElement.nextElementSibling.value)
-          }))
       };
+    </script>
 
-      const response = await fetch('/create-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderData)
-      });
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
 
-      const result = await response.json();
+    <body class="bg-black text-white font-body">
+    <!-- Header -->
+    <header class="px-6 py-6 border-b border-neutral-800 flex justify-between items-center">
+      <h1 class="text-3xl font-display uppercase tracking-wide">WRONG SIZE</h1>
+      <a href="index.html" class="text-sm uppercase hover:text-accentYellow">Back to Shop</a>
+    </header>
 
-      if (result.error) {
-        errorDisplay.textContent = result.error;
-        submitButton.disabled = false;
-                submitButton.textContent = 'Place Order & Pay';
-      } else {
-        alert('Order placed successfully!');
-        form.reset();
-        card.clear();
-        document.getElementById('total-price').textContent = '$0.00';
-        submitButton.disabled = false;
-        submitButton.textContent = 'Place Order & Pay';
-      }
-    });
+    <!-- Product List -->
+    <!-- 🛒 Product List -->
+<section class="px-6 py-12 max-w-6xl mx-auto">
+  <h2 class="text-2xl font-display uppercase mb-6">Products</h2>
+  <div class="product-scroll flex overflow-x-auto space-x-6 pb-4">
+    <!-- Products will be injected here -->
+  </div>
+</section>
 
-    // 🧠 Product Selection Logic
-    const checkboxes = document.querySelectorAll('.product-checkbox');
-    const totalDisplay = document.getElementById('total-price');
+       <!-- Checkout Container -->
+    <main class="px-6 py-12 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Form Section -->
+      <section>
+        <h2 class="text-2xl font-display uppercase mb-6">Billing & Shipping</h2>
+        <form id="checkout-form" class="space-y-6">
+          <div>
+            <label class="block mb-2 text-sm uppercase tracking-wide">Full Name</label>
+            <input name="name" type="text" required class="w-full bg-neutralDark text-white px-4 py-3 rounded-md border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-accentYellow" />
+          </div>
+          <div>
+            <label class="block mb-2 text-sm uppercase tracking-wide">Email</label>
+            <input name="email" type="email" required class="w-full bg-neutralDark text-white px-4 py-3 rounded-md border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-accentYellow" />
+          </div>
+          <div>
+            <label class="block mb-2 text-sm uppercase tracking-wide">Phone</label>
+            <input name="phone" type="tel" required class="w-full bg-neutralDark text-white px-4 py-3 rounded-md border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-accentYellow" />
+          </div>
+          <div>
+            <label class="block mb-2 text-sm uppercase tracking-wide">Address</label>
+            <textarea name="address" rows="3" required class="w-full bg-neutralDark text-white px-4 py-3 rounded-md border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-accentYellow resize-none"></textarea>
+          </div>
 
-    checkboxes.forEach((checkbox) => {
-      const qtyInput = checkbox.parentElement.nextElementSibling;
+          <!-- Submit Button -->
+          <button id="submit" type="submit" class="w-full mt-6 px-6 py-3 bg-white text-black uppercase font-bold tracking-wide hover:bg-accentYellow transition">
+            Place Order
+          </button>
 
-      checkbox.addEventListener('change', () => {
-        qtyInput.disabled = !checkbox.checked;
-        updateTotal();
-      });
+          <!-- Error Message -->
+          <p id="error-message" class="text-red-500 text-sm mt-4 hidden"></p>
+        </form>
+      </section>
 
-      qtyInput.addEventListener('input', updateTotal);
-    });
+      <!-- Cart Summary -->
+      <aside class="bg-neutralDark p-6 rounded-lg border border-neutral-700 h-fit sticky top-20">
+        <h2 class="text-2xl font-display uppercase mb-6">Your Cart</h2>
+        <div id="cart-summary" class="space-y-4"></div>
+        <div class="border-t border-neutral-600 pt-6 mt-6 flex justify-between text-lg font-semibold">
+          <span>Total</span>
+          <span class="text-accentYellow" id="total">$0.00</span>
+        </div>
+      </aside>
+    </main>
 
-    function updateTotal() {
-  let total = 0;
-  const summaryList = document.getElementById('summary-list');
-  const summaryTotal = document.getElementById('summary-total');
+    <!-- Footer -->
+        <!-- Footer -->
+    <footer class="bg-black text-center py-10 text-neutral-400 text-sm">
+      <p>&copy; 2025 WRONG SIZE. All rights reserved.</p>
+    </footer>
 
-  summaryList.innerHTML = ''; // Clear previous summary
+    <!-- Stripe Checkout Logic + Cart Interaction -->
+    <script>
+      const stripe = Stripe("pk_test_51RqTusIYN93J3xT0G6t4Ec9g3pYFV8D6ThQuGEKJOl6AqwlclatwQ4FSg6Xwo1ksV6mAoKoUDhGEOQOBKy2DVQdu00WEwOg9KT");
+      let cart = [];
 
-  checkboxes.forEach((checkbox) => {
-    const qtyInput = checkbox.parentElement.nextElementSibling;
-    if (checkbox.checked) {
-      const name = checkbox.getAttribute('data-name');
-      const price = parseFloat(checkbox.getAttribute('data-price'));
-      const qty = parseInt(qtyInput.value) || 1;
-      const itemTotal = price * qty;
-      total += itemTotal;
+      const products = [
+  {
+    name: "Concrete Heat Cargos",
+    price: 8900,
+    image: "images/concrete-heat-cargos.png",
+    stock: { S: 5, M: 3, L: 0, XL: 2 }
+  },
+  {
+    name: "Oversized Hoodie",
+    price: 6500,
+    image: "images/oversized-hoodie.png",
+    stock: { S: 0, M: 2, L: 4, XL: 1 }
+  },
+  {
+    name: "Overdose Tee",
+    price: 4200,
+    image: "images/overdose-tee.jpg",
+    stock: { S: 10, M: 8, L: 6, XL: 0 }
+  },
+  {
+    name: "Wrong Warmth Beanie",
+    price: 5600,
+    image: "images/wrong-warmth-beanie.png",
+    stock: { S: 0, M: 0, L: 0, XL: 0 } // Beanies might not have sizes — you can simplify this if needed
+  },
+  {
+    name: "Denim Jacket",
+    price: 7400,
+    image: "images/denim-jacket.png",
+    stock: { S: 2, M: 5, L: 3, XL: 1 }
+  },
+  {
+    name: "Layered Flannel",
+    price: 5100,
+    image: "images/layered-flannel.png",
+    stock: { S: 4, M: 4, L: 4, XL: 4 }
+  },
+  {
+    name: "Wide-Leg Jeans",
+    price: 6900,
+    image: "images/wide-leg-jeans.png",
+    stock: { S: 1, M: 0, L: 2, XL: 0 }
+  },
+  {
+    name: "Puffer Vest",
+    price: 5800,
+    image: "images/puffer-vest.png",
+    stock: { S: 3, M: 3, L: 3, XL: 3 }
+  }
+];
 
-      const listItem = document.createElement('li');
-      listItem.innerHTML = `
-        ${name} × ${qty} — $${itemTotal.toFixed(2)}
-        <button class="remove-item" data-name="${name}">Remove</button>
-      `;
-      summaryList.appendChild(listItem);
-    }
-  });
+function renderProducts() {
+  const container = document.querySelector(".product-scroll");
+  container.innerHTML = "";
 
-  summaryTotal.textContent = `$${total.toFixed(2)}`;
-  totalDisplay.textContent = `$${total.toFixed(2)}`;
+  products.forEach(product => {
+    const div = document.createElement("div");
+    div.className = "product-card min-w-[220px] bg-neutralDark rounded-lg overflow-hidden border border-neutral-700 shadow hover:shadow-lg transition flex-shrink-0";
 
-  // Attach remove button listeners
-  document.querySelectorAll('.remove-item').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const nameToRemove = btn.getAttribute('data-name');
-      checkboxes.forEach((checkbox) => {
-        if (checkbox.getAttribute('data-name') === nameToRemove) {
-          checkbox.checked = false;
-          checkbox.parentElement.nextElementSibling.disabled = true;
-        }
-      });
-      updateTotal();
-    });
+    div.dataset.name = product.name;
+    div.dataset.price = product.price;
+
+    // 🔄 Generate size options based on stock
+    const sizeOptions = Object.entries(product.stock).map(([size, qty]) =>
+      `<option value="${size}" ${qty === 0 ? "disabled" : ""}>${size} ${qty === 0 ? "(Sold Out)" : ""}</option>`
+    ).join('');
+
+    div.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" class="w-full h-32 object-contain bg-black" />
+      <div class="p-3">
+        <h3 class="text-sm font-display uppercase mb-1 text-white">${product.name}</h3>
+        <p class="text-accentYellow font-semibold text-sm mb-2">$${(product.price / 100).toFixed(2)}</p>
+
+        <label class="block text-xs mb-1">Size</label>
+        <select class="product-size w-full mb-2 px-2 py-1 bg-gray-800 text-white border border-gray-600 rounded text-xs">
+          ${sizeOptions}
+        </select>
+
+        <button onclick="addToCart(this)" class="add-to-cart w-full px-3 py-2 bg-white text-black text-xs font-bold uppercase hover:bg-accentYellow transition">
+          Add to Cart
+        </button>
+      </div>
+    `;
+
+    container.appendChild(div);
   });
 }
 
-    // 💳 Toggle Stripe Card Element
-    const creditRadio = document.getElementById('credit');
-    const paypalRadio = document.getElementById('paypal');
-    const cardElementContainer = document.getElementById('card-element');
+function addToCart(button) {
+  const product = button.closest(".product-card");
+  const name = product.dataset.name;
+  const price = parseInt(product.dataset.price);
+  const size = product.querySelector(".product-size").value;
 
-    function toggleCardElement() {
-      cardElementContainer.style.display = creditRadio.checked ? 'block' : 'none';
-    }
+  const productData = products.find(p => p.name === name);
 
-    creditRadio.addEventListener('change', toggleCardElement);
-    paypalRadio.addEventListener('change', toggleCardElement);
+  // 🚫 Prevent adding if out of stock
+  if (!productData || productData.stock[size] <= 0) {
+    alert("Sorry, this size is out of stock.");
+    return;
+  }
 
-    // Initialize visibility on page load
-    toggleCardElement();
-  </script>
+  // 🛒 Add to cart or update quantity
+  const existing = cart.find(item => item.name === name && item.size === size);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({
+      name,
+      price,
+      size,
+      image: product.querySelector("img").src,
+      quantity: 1
+    });
+  }
 
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const summary = document.querySelector(".checkout-summary");
-    const deliveryNote = document.querySelector(".delivery-note");
-    const totalAmount = document.querySelector(".total-amount");
+  // 📉 Reduce stock immediately
+  productData.stock[size] -= 1;
 
-    // Add animation class after slight delay
-    setTimeout(() => {
-      summary.classList.add("animate");
-      deliveryNote.classList.add("animate");
-      totalAmount.classList.add("animate");
-    }, 300); // Delay for smoother entrance
+  updateCartDisplay();
+  renderProducts(); // 🔄 Re-render to update dropdowns
+}
+      function updateCartDisplay() {
+  const cartContainer = document.getElementById("cart-summary");
+  cartContainer.innerHTML = "";
+
+  cartContainer.className = "grid grid-cols-2 md:grid-cols-3 gap-4";
+
+  cart.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.className = "bg-gray-900 p-4 rounded-lg flex flex-col items-center text-center";
+
+    div.innerHTML = `
+      <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-contain bg-black rounded mb-2" />
+      <span class="font-semibold text-sm">${item.name}</span>
+      <span class="text-xs text-neutral-400 mb-1">Size: ${item.size}</span>
+      <div class="flex items-center justify-center gap-2 mb-2">
+        <button onclick="changeQuantity(${index}, -1)" class="px-2 py-1 bg-white text-black text-xs font-bold rounded">−</button>
+        <span>${item.quantity}</span>
+        <button onclick="changeQuantity(${index}, 1)" class="px-2 py-1 bg-white text-black text-xs font-bold rounded">+</button>
+      </div>
+      <span class="text-green-400 text-sm font-semibold">$${((item.price * item.quantity) / 100).toFixed(2)}</span>
+    `;
+
+    cartContainer.appendChild(div);
   });
-</script>
-</body>
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  document.getElementById("total").textContent = `$${(total / 100).toFixed(2)}`;
+}
+
+      function changeQuantity(index, delta) {
+        cart[index].quantity += delta;
+
+        if (cart[index].quantity <= 0) {
+          cart.splice(index, 1); // Remove item
+        }
+
+        updateCartDisplay();
+      }
+
+      async function handleCheckout(e) {
+        e.preventDefault();
+
+        const form = document.getElementById("checkout-form");
+        const formData = new FormData(form);
+
+        const customerData = {
+          name: formData.get("name"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          address: formData.get("address"),
+        };
+
+        if (cart.length === 0) {
+          const errorMessage = document.getElementById("error-message");
+          errorMessage.textContent = "Your cart is empty.";
+          errorMessage.classList.remove("hidden");
+          return;
+        }
+
+        try {
+          const response = await fetch("http://localhost:4242/create-checkout-session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...customerData, cart }),
+          });
+
+          const { id } = await response.json();
+          stripe.redirectToCheckout({ sessionId: id });
+        } catch (err) {
+          const errorMessage = document.getElementById("error-message");
+          errorMessage.textContent = "Checkout failed. Please try again.";
+          errorMessage.classList.remove("hidden");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderProducts();
+        document.getElementById("checkout-form").addEventListener("submit", handleCheckout);
+      });
+    </script>
+  </body>
 </html>

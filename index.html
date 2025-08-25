@@ -1,282 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WRONG-SIZE</title>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WRONG SIZE</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="styles.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              accentYellow: '#D4AF37',
+              neutralDark: '#1F1F1F',
+            },
+            fontFamily: {
+              display: ['Bebas Neue', 'Anton', 'sans-serif'],
+              body: ['Outfit', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
 
-  <!-- Font Awesome for Instagram Icon -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
 
-  <style>
-    /* Slider Styles */
-    .gallery-slider {
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-    }
-
-    .gallery-track {
-      display: flex;
-      transition: transform 0.5s ease;
-      width: 100%;
-    }
-
-    .gallery-track img {
-      width: 100%;
-      flex-shrink: 0;
-      border-radius: 8px;
-    }
-
-    .gallery-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #1e2a38; /* Dark arrow color */
-  font-size: 2rem; /* Bigger arrow */
-  cursor: pointer;
-  z-index: 1;
-}
-
-.gallery-btn.left {
-  left: 0.5rem;
-}
-
-.gallery-btn.right {
-  right: 0.5rem;
-}
-
-.gallery-btn:hover {
-  background-color: #ff7b7b; /* Lighter red on hover */
-}
-
-.gallery-btn.left {
-  left: 0.5rem;
-}
-
-.gallery-btn.right {
-  right: 0.5rem;
-}
-
-    .gallery-btn.left {
-      left: 0.5rem;
-    }
-
-    .gallery-btn.right {
-      right: 0.5rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="top-banner">
-    Free delivery over $100
-  </div>
-
-  <!-- Top Bar: Nav Buttons (Left) + Social Icons (Right) -->
-  <div class="top-bar">
-    <div class="nav-buttons">
-      <button onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' })">Shop</button>
-      <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">Contact</button>
-      <button onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' })">About Us</button>
+  <body class="bg-black text-white font-body">
+    <!-- Top Banner -->
+    <div class="bg-neutralDark text-center py-2 text-sm tracking-wide uppercase text-accentYellow">
+      Free delivery over $100
     </div>
-    <div class="social-link">
-      <a href="https://www.instagram.com/wrong.size.fit/" target="_blank" aria-label="Instagram">
-        <i class="fab fa-instagram instagram-icon"></i>
-      </a>
-      <a href="https://www.tiktok.com/@wrong.size" target="_blank" aria-label="TikTok">
-        <i class="fab fa-tiktok tiktok-icon"></i>
-      </a>
-    </div>
-  </div>
 
-  <!-- Header: Logo and Tagline Centered -->
-  <header>
-    <div class="header-content">
-      <img src="logo.png" alt="WRONG SIZE Logo" class="brand-logo" />
-      <div class="logo-tagline">Disrupt the Fit</div>
-    </div>
-  </header>
-
-  <div class="collection-wrapper">
-    <div class="collection-title" onclick="toggleCollection()">VOLUME ZERO: WRONG FIT, RIGHT ENERGY</div>
-  
-    <section class="products" id="products">
-  <!-- Product 1 -->
-  <div class="product-card">
-    <div class="gallery-slider">
-      <button class="gallery-btn left">&#10094;</button>
-      <div class="gallery-track">
-        <img src="cargoyellow3.png" alt="Product 1A" />
-        <img src="cargoyellow1.png" alt="Product 1B" />
-        <img src="cargoyellow2.png" alt="Product 1C" />
+    <!-- Sticky Nav -->
+    <nav class="sticky top-0 z-50 bg-black border-b border-neutral-800 px-6 py-4 flex justify-between items-center">
+      <div class="text-3xl font-display tracking-wide uppercase">WRONG SIZE</div>
+      <ul class="hidden md:flex gap-8 text-sm uppercase tracking-wider">
+        <li><a href="#products" class="hover:text-accentYellow">Shop</a></li>
+        <li><a href="#about" class="hover:text-accentYellow">About</a></li>
+        <li><a href="#contact" class="hover:text-accentYellow">Contact</a></li>
+      </ul>
+      <div class="flex gap-4">
+        <a href="https://www.instagram.com/wrong.size.fit/" target="_blank"><i class="fab fa-instagram text-xl hover:text-accentYellow"></i></a>
+        <a href="https://www.tiktok.com/@wrong.size" target="_blank"><i class="fab fa-tiktok text-xl hover:text-accentYellow"></i></a>
       </div>
-      <button class="gallery-btn right">&#10095;</button>
-    </div>
-    <h2>CONCRETE HEAT CARGOS</h2>
-    <p>Elegant and minimal.</p>
-    <p class="price">$89.00</p>
-    <a href="checkout.html"><button>Shop Now</button></a>
-  </div>
+    </nav>
 
-  <!-- Product 2 -->
-  <div class="product-card">
-    <div class="gallery-slider">
-      <button class="gallery-btn left">&#10094;</button>
-      <div class="gallery-track">
-        <img src="overdose1.png" alt="Overdose Tee Front" />
-        <img src="overdose2.jpg" alt="Overdose Tee Back" />
-        <img src="overdose3.jpg" alt="Overdose Tee Back" />
+    <!-- Hero Section -->
+    <header class="h-screen flex flex-col justify-center items-center text-center px-6">
+      <img src="logo.png" alt="WRONG SIZE Logo" class="w-32 mb-6" />
+      <h1 class="text-6xl md:text-8xl font-display uppercase tracking-tight mb-4">Disrupt the Fit</h1>
+      <p class="text-neutral-400 text-lg mb-6">Oversized. Undersized. Always bold.</p>
+      <a href="#products" class="px-6 py-3 bg-white text-black uppercase font-bold tracking-wide hover:bg-accentYellow transition">Shop Now</a>
+    </header>
+
+    <!-- Collection Title -->
+    <div class="text-center text-2xl md:text-4xl font-display uppercase py-12 bg-neutralDark cursor-pointer hover:text-accentYellow transition">
+      VOLUME ZERO: WRONG FIT, RIGHT ENERGY
+    </div>
+
+    <!-- Product Grid -->
+    <section id="products" class="px-6 py-20 bg-black">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+
+        <!-- Product 1 -->
+        <div class="group">
+          <div class="relative">
+            <button onclick="this.nextElementSibling.scrollBy({ left: -300, behavior: 'smooth' })"
+              class="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-2xl z-10 hover:text-accentYellow">&#10094;</button>
+            <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth rounded-lg">
+              <img src="cargoyellow1.png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+              <img src="cargoyellow2.png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+              <img src="cargoyellow3.png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+            </div>
+            <button onclick="this.previousElementSibling.scrollBy({ left: 300, behavior: 'smooth' })"
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white text-2xl z-10 hover:text-accentYellow">&#10095;</button>
+          </div>
+          <div class="mt-4">
+            <h2 class="text-xl font-display uppercase">Concrete Heat Cargos</h2>
+            <p class="text-neutral-400">Elegant and minimal.</p>
+            <p class="text-accentYellow font-semibold">$89.00</p>
+            <a href="checkout.html" class="inline-block mt-2 px-4 py-2 bg-white text-black uppercase font-bold hover:bg-accentYellow transition">Shop Now</a>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="group">
+          <div class="relative">
+            <button onclick="this.nextElementSibling.scrollBy({ left: -300, behavior: 'smooth' })"
+              class="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-2xl z-10 hover:text-accentYellow">&#10094;</button>
+            <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth rounded-lg">
+              <img src="overdose1.png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+              <img src="overdose2.jpg" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+              <img src="overdose3.jpg" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+            </div>
+            <button onclick="this.previousElementSibling.scrollBy({ left: 300, behavior: 'smooth' })"
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white text-2xl z-10 hover:text-accentYellow">&#10095;</button>
+          </div>
+          <div class="mt-4">
+            <h2 class="text-xl font-display uppercase">Overdose Tee</h2>
+            <p class="text-neutral-400">Pastel perfection.</p>
+            <p class="text-accentYellow font-semibold">$39.00</p>
+            <a href="checkout.html" class="inline-block mt-2 px-4 py-2 bg-white text-black uppercase font-bold hover:bg-accentYellow transition">Shop Now</a>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="group">
+          <div class="relative">
+            <button onclick="this.nextElementSibling.scrollBy({ left: -300, behavior: 'smooth' })"
+              class="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-2xl z-10 hover:text-accentYellow">&#10094;</button>
+            <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth rounded-lg">
+              <img src="cargo1.png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+              <img src="cargo2.png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+            </div>
+            <button onclick="this.previousElementSibling.scrollBy({ left: 300, behavior: 'smooth' })"
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white text-2xl z-10 hover:text-accentYellow">&#10095;</button>
+          </div>
+          <div class="mt-4">
+            <h2 class="text-xl font-display uppercase">Lagged Fit Cargos</h2>
+            <p class="text-neutral-400">Soft and chic.</p>
+            <p class="text-accentYellow font-semibold">$79.00</p>
+            <a href="checkout.html" class="inline-block mt-2 px-4 py-2 bg-white text-black uppercase font-bold hover:bg-accentYellow transition">Shop Now</a>
+          </div>
+        </div>
+
+         <!-- Product 4 -->
+        <div class="group">
+          <div class="relative">
+            <button onclick="this.nextElementSibling.scrollBy({ left: -300, behavior: 'smooth' })"
+              class="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-2xl z-10 hover:text-accentYellow">&#10094;</button>
+            <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth rounded-lg">
+              <img src="beanie (2).png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+              <img src="beanie (1).png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+              <img src="beanie (3).png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+            </div>
+            <button onclick="this.previousElementSibling.scrollBy({ left: 300, behavior: 'smooth' })"
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white text-2xl z-10 hover:text-accentYellow">&#10095;</button>
+          </div>
+          <div class="mt-4">
+            <h2 class="text-xl font-display uppercase">Wrong Warmth Beanie</h2>
+            <p class="text-neutral-400">Bold prints, clean fit.</p>
+            <p class="text-accentYellow font-semibold">$29.00</p>
+            <a href="checkout.html" class="inline-block mt-2 px-4 py-2 bg-white text-black uppercase font-bold hover:bg-accentYellow transition">Shop Now</a>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="group">
+          <div class="relative">
+            <button onclick="this.nextElementSibling.scrollBy({ left: -300, behavior: 'smooth' })"
+              class="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-2xl z-10 hover:text-accentYellow">&#10094;</button>
+            <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth rounded-lg">
+              <img src="hoodie 1.png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+              <img src="hoodie 2.png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+              <img src="hoodie 3.png" class="w-full h-auto object-cover snap-center flex-shrink-0" />
+            </div>
+            <button onclick="this.previousElementSibling.scrollBy({ left: 300, behavior: 'smooth' })"
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white text-2xl z-10 hover:text-accentYellow">&#10095;</button>
+          </div>
+          <div class="mt-4">
+            <h2 class="text-xl font-display uppercase">Void Form Hoodie</h2>
+            <p class="text-neutral-400">Street-ready essentials.</p>
+            <p class="text-accentYellow font-semibold">$69.00</p>
+            <a href="checkout.html" class="inline-block mt-2 px-4 py-2 bg-white text-black uppercase font-bold hover:bg-accentYellow transition">Shop Now</a>
+          </div>
+        </div>
+
       </div>
-      <button class="gallery-btn right">&#10095;</button>
-    </div>
-    <h2>Overdose Tee</h2>
-    <p>Pastel perfection.</p>
-    <p class="price">$39.00</p>
-    <a href="checkout.html"><button>Shop Now</button></a>
-  </div>
+    </section>
 
-  <!-- Product 3 -->
-  <div class="product-card">
-    <div class="gallery-slider">
-      <button class="gallery-btn left">&#10094;</button>
-      <div class="gallery-track">
-        <img src="cargo1.png" alt="cargo1" />
-        <img src="cargo2.png" alt="cargo2" />
+    <!-- About Section -->
+    <section id="about" class="px-6 py-20 bg-neutralDark">
+      <h2 class="text-4xl font-display uppercase mb-6">About Us</h2>
+      <p class="text-neutral-300 leading-relaxed max-w-3xl mx-auto">
+        WRONG SIZE started with a simple idea: clothes shouldn't fit expectations — they should fit you. What began as a late-night sketch on a torn notebook turned into a bold movement.
+        <br /><br />
+        Born in a small room, inspired by oversized hand-me-downs and the freedom of not fitting in, WRONG SIZE was created to challenge the fashion system. We design loose-fit streetwear that embraces imperfection — oversized, undersized, asymmetrical, raw.
+        <br /><br />
+        Every piece represents rebellion, authenticity, and individuality. Our style is rooted in street culture, shaped by real people and real stories. WRONG SIZE isn’t just a brand — it’s a mindset.
+      </p>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer id="contact" class="bg-black text-center py-10 text-neutral-400 text-sm">
+      <div class="mb-4">
+        <h3 class="text-white text-lg font-display uppercase mb-2">Contact Us</h3>
+        <p>Email: <a href="mailto:contactwrongsize@gmail.com" class="hover:text-accentYellow">contactwrongsize@gmail.com</a></p>
+        <p>Phone: <a href="tel:+11111111111" class="hover:text-accentYellow">+1 111 111 1111</a></p>
       </div>
-      <button class="gallery-btn right">&#10095;</button>
-    </div>
-    <h2>LAGGED FIT CARGOS</h2>
-    <p>Soft and chic.</p>
-    <p class="price">$79.00</p>
-    <a href="checkout.html"><button>Shop Now</button></a>
-  </div>
-
-  <!-- Product 4 -->
-  <div class="product-card">
-    <div class="gallery-slider">
-      <button class="gallery-btn left">&#10094;</button>
-      <div class="gallery-track">
-        <img src="beanie (2).png" alt="Graphic Tee Front" />
-        <img src="beanie (1).png" alt="Graphic Tee Back" />
-        <img src="beanie (3).png" alt="Graphic Tee Back" />
+      <div class="flex justify-center gap-4 mt-4">
+        <a href="https://www.instagram.com/wrong.size.fit/" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram text-xl hover:text-accentYellow"></i>
+        </a>
+        <a href="https://www.tiktok.com/@wrong.size" target="_blank" aria-label="TikTok">
+          <i class="fab fa-tiktok text-xl hover:text-accentYellow"></i>
+        </a>
       </div>
-      <button class="gallery-btn right">&#10095;</button>
-    </div>
-    <h2>WRONG WARMTH BEANIE</h2>
-    <p>Bold prints, clean fit.</p>
-    <p class="price">$29.00</p>
-    <a href="checkout.html"><button>Shop Now</button></a>
-  </div>
-
-  <!-- Product 5 -->
-  <div class="product-card">
-    <div class="gallery-slider">
-      <button class="gallery-btn left">&#10094;</button>
-      <div class="gallery-track">
-        <img src="hoodie 1.png" alt="Denim Set Front" />
-        <img src="hoodie 2.png" alt="Denim Set Back" />
-        <img src="hoodie 3.png" alt="Denim Set Back" />
-      </div>
-      <button class="gallery-btn right">&#10095;</button>
-    </div>
-    <h2>VOID FORM HOODIE</h2>
-    <p>Street-ready essentials.</p>
-    <p class="price">$69.00</p>
-    <a href="checkout.html"><button>Shop Now</button></a>
-  </div>
-</section>
-
-<section id="about">
-  <div class="about-content">
-    <h2>About Us</h2>
-    <p>WRONG SIZE started with a simple idea: clothes shouldn't fit expectations — they should fit you. What began as a late-night sketch on a torn notebook turned into a bold movement.</p>
-    <p>Born in a small room, inspired by oversized hand-me-downs and the freedom of not fitting in, WRONG SIZE was created to challenge the fashion system. We design loose-fit streetwear that embraces imperfection — oversized, undersized, asymmetrical, raw.</p>
-     <p>Every piece represents rebellion, authenticity, and individuality. Our style is rooted in street culture, shaped by real people and real stories. WRONG SIZE isn’t just a brand — it’s a mindset. For those who refuse to blend in, for those who wear confidence louder than clothes. This is your fit, your way — even if it's the wrong size.</p> 
-  </div>
-</section>
-
-<footer id="contact">
-  <p>&copy; 2025 WRONG SIZE. All rights reserved.</p>
-  <p>Email: contactwrongsize@gmail.com</p>
-  <p>Phone: +1 111 111 1111</p>
-</footer>
+      <p class="mt-6">&copy; 2025 WRONG SIZE. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
 
 <!-- ...script remains unchanged... -->
 
-  <script>
-    document.querySelectorAll('.product-card').forEach(card => {
-      const track = card.querySelector('.gallery-track');
-      const btnLeft = card.querySelector('.gallery-btn.left');
-      const btnRight = card.querySelector('.gallery-btn.right');
   
-      let currentIndex = 0;
-      const images = track.querySelectorAll('img');
-  
-      function updateSlider() {
-        const offset = -currentIndex * track.clientWidth;
-        track.style.transform = `translateX(${offset}px)`;
-      }
-  
-      btnLeft.addEventListener('click', () => {
-        if (currentIndex > 0) {
-          currentIndex--;
-          updateSlider();
-        }
-      });
-  
-      btnRight.addEventListener('click', () => {
-        if (currentIndex < images.length - 1) {
-          currentIndex++;
-          updateSlider();
-        }
-      });
-  
-      window.addEventListener('resize', updateSlider);
-  
-      // Swipe Support
-      let startX = 0;
-      let isDragging = false;
-  
-      track.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        isDragging = true;
-      });
-  
-      track.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const currentX = e.touches[0].clientX;
-        const diffX = startX - currentX;
-  
-        if (Math.abs(diffX) > 50) {
-          if (diffX > 0 && currentIndex < images.length - 1) {
-            currentIndex++;
-          } else if (diffX < 0 && currentIndex > 0) {
-            currentIndex--;
-          }
-          updateSlider();
-          isDragging = false;
-        }
-      });
-  
-      track.addEventListener('touchend', () => {
-        isDragging = false;
-      });
-    });
-    function toggleCollection() {
-  const products = document.getElementById('products');
-  products.classList.toggle('show');
-}
-  </script>
-</body>
-</html>
